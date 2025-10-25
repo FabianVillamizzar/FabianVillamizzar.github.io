@@ -20,7 +20,6 @@
             position: relative;
         }
 
-        /* Partículas flotantes */
         .particles {
             position: fixed;
             top: 0;
@@ -200,7 +199,6 @@
             font-size: 1.05em;
         }
 
-        /* Estilos para Spotify */
         .spotify-player {
             margin: 20px 0;
             border-radius: 12px;
@@ -208,7 +206,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        /* Estilos para imágenes */
         .image-container {
             margin: 20px 0;
             border-radius: 12px;
@@ -222,7 +219,6 @@
             border-radius: 12px;
         }
 
-        /* Estilos para audio */
         .audio-player {
             margin: 20px 0;
             width: 100%;
@@ -234,16 +230,6 @@
             outline: none;
         }
 
-        .audio-placeholder {
-            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        /* Estilos para video */
         .video-player {
             margin: 20px 0;
             border-radius: 12px;
@@ -255,15 +241,6 @@
             width: 100%;
             display: block;
             border-radius: 12px;
-        }
-
-        .video-placeholder {
-            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
-            color: white;
-            padding: 40px 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin: 20px 0;
         }
 
         .close-btn {
@@ -319,25 +296,14 @@
                 gap: 30px;
             }
         }
-
-        .instruction-note {
-            background: rgba(252, 211, 77, 0.2);
-            border-left: 4px solid #fbbf24;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            font-size: 0.9em;
-            color: #78350f;
-        }
     </style>
 </head>
 <body>
-    <!-- Partículas flotantes -->
     <div class="particles" id="particles"></div>
 
     <div class="container">
         <div class="header">
-            <h1>Para Ti 💜</h1>
+            <h1>Para Ti Kathe 💜</h1>
             <p>Cada sobre guarda algo especial...</p>
         </div>
 
@@ -357,9 +323,12 @@
                             <p>Cuando la pongas, cierra los ojos y piensa en todos nuestros momentos juntos.</p>
                            
                             <div class="spotify-player">
-                                <iframe style="border-radius:12px" src="https://open.spotify.com/intl-es/track/3GSMdtJphymHEsR8K9jT5Q?si=8cf48d48ac28437c" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                                <iframe style="border-radius:12px" 
+                                    src="https://open.spotify.com/embed/track/3GSMdtJphymHEsR8K9jT5Q" 
+                                    width="100%" height="152" frameBorder="0" allowfullscreen="" 
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy"></iframe>
                             </div>
-        
                             
                             <p><strong>Te amo infinitamente. ❤️</strong></p>
                             <button class="close-btn" onclick="event.stopPropagation(); toggleEnvelope(this.closest('.envelope-card'))">Cerrar</button>
@@ -382,9 +351,8 @@
                             <p>¿Recuerdas este día? Fue uno de los mejores momentos que hemos vivido juntos.</p>
                         
                             <div class="image-container">
-                                <img src="https://postimg.cc/7J8WnXP4" alt="Nuestro momento especial">
+                                <img src="media/imagenes/foto1.jpg" alt="Nuestro momento especial">
                             </div>
-                            
                             
                             <p><strong>Sigamos creando memorias así de hermosas. 💕</strong></p>
                             <button class="close-btn" onclick="event.stopPropagation(); toggleEnvelope(this.closest('.envelope-card'))">Cerrar</button>
@@ -406,22 +374,12 @@
                             <h3>Escucha mi voz 💜</h3>
                             <p>Grabé esto especialmente para ti. Dale play cuando necesites sentirme cerca.</p>
                             
-                            <!-- INSTRUCCIONES: Graba tu audio y súbelo -->
                             <div class="audio-player">
                                 <audio controls>
-                                    <source src="TU_URL_DE_AUDIO_AQUI.mp3" type="audio/mpeg">
+                                    <source src="media/audios/mensaje_voz.mp3" type="audio/mpeg">
+                                    <source src="media/audios/mensaje_voz.ogg" type="audio/ogg">
                                     Tu navegador no soporta el elemento de audio.
                                 </audio>
-                            </div>
-                            
-                            <div class="instruction-note">
-                                <strong>📝 Instrucción:</strong> 
-                                <ol style="margin-left: 20px; margin-top: 10px;">
-                                    <li>Graba tu audio de voz en tu celular</li>
-                                    <li>Súbelo a un servicio como <a href="https://vocaroo.com" target="_blank">Vocaroo.com</a> (gratis, sin registro)</li>
-                                    <li>Copia el link de descarga MP3</li>
-                                    <li>Reemplaza "TU_URL_DE_AUDIO_AQUI.mp3" con tu link</li>
-                                </ol>
                             </div>
                             
                             <p>Cada palabra es desde el corazón.</p>
@@ -445,23 +403,11 @@
                             <h3>Mira esto 💜</h3>
                             <p>Hice este video pensando en ti. Espero que te haga sonreír tanto como yo sonreí al hacerlo.</p>
                             
-                            <!-- INSTRUCCIONES: Sube tu video -->
                             <div class="video-player">
                                 <video controls>
-                                    <source src="TU_URL_DE_VIDEO_AQUI.mp4" type="video/mp4">
+                                    <source src="media/videos/video_para_ti.mp4" type="video/mp4">
                                     Tu navegador no soporta el elemento de video.
                                 </video>
-                            </div>
-                            
-                            <div class="instruction-note">
-                                <strong>📝 Instrucción:</strong> 
-                                <ol style="margin-left: 20px; margin-top: 10px;">
-                                    <li>Sube tu video a Google Drive</li>
-                                    <li>Click derecho > Obtener enlace > Cambiar a "Cualquier persona con el enlace"</li>
-                                    <li>Copia el ID del link (la parte entre /d/ y /view)</li>
-                                    <li>Usa este formato: https://drive.google.com/uc?export=download&id=TU_ID_AQUI</li>
-                                    <li>O súbelo a <a href="https://streamable.com" target="_blank">Streamable.com</a> y usa su link directo</li>
-                                </ol>
                             </div>
                             
                             <p>Cada segundo de este video es un pedacito de mi corazón.</p>
@@ -486,11 +432,11 @@
                             <p>Cada momento lejos de ti escucho esta canción y pienso en todo lo que vivimos juntos.</p>
                             
                             <div class="spotify-player">
-                                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/TU_SEGUNDO_TRACK_ID_AQUI?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                            </div>
-                            
-                            <div class="instruction-note">
-                                <strong>📝 Instrucción:</strong> Reemplaza "TU_SEGUNDO_TRACK_ID_AQUI" con otra canción de Spotify que quieras dedicarle.
+                                <iframe style="border-radius:12px" 
+                                    src="https://open.spotify.com/embed/track/0u2P5u6lvoDfwTYjAADbn4" 
+                                    width="100%" height="152" frameBorder="0" allowfullscreen="" 
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy"></iframe>
                             </div>
                             
                             <p>Pronto estaremos juntos de nuevo, creando más momentos inolvidables.</p>
@@ -517,11 +463,11 @@
                             <p>Gracias por cada sonrisa, cada abrazo, cada momento compartido. Gracias por ser tú.</p>
                             
                             <div class="spotify-player">
-                                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/TU_TERCER_TRACK_ID_AQUI?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                            </div>
-                            
-                            <div class="instruction-note">
-                                <strong>📝 Instrucción:</strong> Pon aquí la canción más especial de todas, la que mejor represente tu amor por ella.
+                                <iframe style="border-radius:12px" 
+                                    src="https://open.spotify.com/embed/track/3JvrhDOgAt6p7K8mDyZwRd" 
+                                    width="100%" height="152" frameBorder="0" allowfullscreen="" 
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy"></iframe>
                             </div>
                             
                             <p><strong>Te amo hoy, mañana y siempre. Por todos nuestros mesiversarios que vienen. 💕✨</strong></p>
@@ -534,7 +480,6 @@
     </div>
 
     <script>
-        // Crear partículas flotantes
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = 20;
@@ -559,7 +504,6 @@
             card.classList.toggle('opened');
         }
 
-        // Inicializar partículas cuando cargue la página
         window.addEventListener('load', createParticles);
     </script>
 </body>
