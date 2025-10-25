@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Para Ti 💜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2d1b3d 50%, #1e1e2e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Partículas flotantes */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.8) 0%, rgba(167, 139, 250, 0) 70%);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.3;
+            }
+            25% {
+                transform: translateY(-100px) translateX(50px) scale(1.2);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-50px) translateX(-50px) scale(0.8);
+                opacity: 0.4;
+            }
+            75% {
+                transform: translateY(-150px) translateX(30px) scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #a78bfa 0%, #e879f9 50%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.4em;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .envelopes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            padding: 20px;
+        }
+
+        .envelope-card {
+            perspective: 1500px;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .envelope-card:nth-child(1) { animation-delay: 0.1s; }
+        .envelope-card:nth-child(2) { animation-delay: 0.2s; }
+        .envelope-card:nth-child(3) { animation-delay: 0.3s; }
+        .envelope-card:nth-child(4) { animation-delay: 0.4s; }
+        .envelope-card:nth-child(5) { animation-delay: 0.5s; }
+        .envelope-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 250px;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .envelope-card.opened .envelope-wrapper {
+            transform: rotateY(180deg);
+        }
+
+        .envelope-front, .envelope-back {
+            position: absolute;
+            width: 100%;
+            min-height: 250px;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .envelope-front {
+            background: rgba(167, 139, 250, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(167, 139, 250, 0.3);
+            box-shadow: 0 8px 32px rgba(167, 139, 250, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .envelope-front:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(167, 139, 250, 0.4);
+            border-color: rgba(167, 139, 250, 0.6);
+        }
+
+        .envelope-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .envelope-title {
+            color: white;
+            font-size: 1.6em;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .envelope-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .envelope-back {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            transform: rotateY(180deg);
+            overflow-y: auto;
+            max-height: 600px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .letter-content {
+            color: #2d1b3d;
+            line-height: 1.8;
+        }
+
+        .letter-content h3 {
+            color: #7c3aed;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .letter-content p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        /* Estilos para Spotify */
+        .spotify-player {
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilos para imágenes */
+        .image-container {
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-container img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* Estilos para audio */
+        .audio-player {
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .audio-player audio {
+            width: 100%;
+            border-radius: 50px;
+            outline: none;
+        }
+
+        .audio-placeholder {
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Estilos para video */
+        .video-player {
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-player video {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .video-placeholder {
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            .envelopes-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .instruction-note {
+            background: rgba(252, 211, 77, 0.2);
+            border-left: 4px solid #fbbf24;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #78350f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flotantes -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Para Ti 💜</h1>
+            <p>Cada sobre guarda algo especial...</p>
+        </div>
+
+        <div class="envelopes-grid">
+            <!-- Sobre 1: Texto + Canción de Spotify -->
+            <div class="envelope-card" onclick="toggleEnvelope(this)">
+                <div class="envelope-wrapper">
+                    <div class="envelope-front">
+                        <div class="envelope-icon">🎵</div>
+                        <div class="envelope-title">Cuando extrañes mi voz</div>
+                        <div class="envelope-subtitle">Una canción para ti</div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="letter-content">
+                            <h3>Escucha esto 💜</h3>
+                            <p>Esta canción me recuerda a ti cada vez que la escucho. Cada letra, cada nota, es como si hablara de nosotros.</p>
+                            <p>Cuando la pongas, cierra los ojos y piensa en todos nuestros momentos juntos.</p>
+                            
+                            <!-- INSTRUCCIONES: Reemplaza el src con tu link de Spotify -->
+                            <!-- Para obtener el link: Ve a Spotify > Click derecho en la canción > Compartir > Copiar enlace de inserción de canción -->
+                            <div class="spotify-player">
+                                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/TU_TRACK_ID_AQUI?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                            </div>
+                            
+                            <div class="instruction-note">
+                                <strong>📝 Instrucción:</strong> Reemplaza "TU_TRACK_ID_AQUI" con el ID de tu canción de Spotify. Para obtenerlo, ve a Spotify Web > Click derecho en la canción > Compartir > Copiar enlace de inserción.
+                            </div>
+                            
+                            <p><strong>Te amo infinitamente. ❤️</strong></p>
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleEnvelope(this.closest('.envelope-card'))">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sobre 2: Texto + Imagen -->
+            <div class="envelope-card" onclick="toggleEnvelope(this)">
+                <div class="envelope-wrapper">
+                    <div class="envelope-front">
+                        <div class="envelope-icon">📸</div>
+                        <div class="envelope-title">Cuando quieras recordar</div>
+                        <div class="envelope-subtitle">Un momento especial</div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="letter-content">
+                            <h3>Este momento 💜</h3>
+                            <p>¿Recuerdas este día? Fue uno de los mejores momentos que hemos vivido juntos.</p>
+                            
+                            <!-- INSTRUCCIONES: Sube tu imagen a un servicio como Imgur, Postimages o Google Drive (con link público) -->
+                            <div class="image-container">
+                                <img src="TU_URL_DE_IMAGEN_AQUI" alt="Nuestro momento especial">
+                            </div>
+                            
+                            <div class="instruction-note">
+                                <strong>📝 Instrucción:</strong> Sube tu foto a <a href="https://imgur.com" target="_blank">Imgur.com</a> o <a href="https://postimages.org" target="_blank">Postimages.org</a>, copia el link directo de la imagen y reemplaza "TU_URL_DE_IMAGEN_AQUI".
+                            </div>
+                            
+                            <p>Tu sonrisa en esa foto es mi tesoro más preciado.</p>
+                            <p><strong>Sigamos creando memorias así de hermosas. 💕</strong></p>
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleEnvelope(this.closest('.envelope-card'))">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sobre 3: Texto + Audio de voz -->
+            <div class="envelope-card" onclick="toggleEnvelope(this)">
+                <div class="envelope-wrapper">
+                    <div class="envelope-front">
+                        <div class="envelope-icon">🎤</div>
+                        <div class="envelope-title">Cuando necesites escucharme</div>
+                        <div class="envelope-subtitle">Un mensaje de voz</div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="letter-content">
+                            <h3>Escucha mi voz 💜</h3>
+                            <p>Grabé esto especialmente para ti. Dale play cuando necesites sentirme cerca.</p>
+                            
+                            <!-- INSTRUCCIONES: Graba tu audio y súbelo -->
+                            <div class="audio-player">
+                                <audio controls>
+                                    <source src="TU_URL_DE_AUDIO_AQUI.mp3" type="audio/mpeg">
+                                    Tu navegador no soporta el elemento de audio.
+                                </audio>
+                            </div>
+                            
+                            <div class="instruction-note">
+                                <strong>📝 Instrucción:</strong> 
+                                <ol style="margin-left: 20px; margin-top: 10px;">
+                                    <li>Graba tu audio de voz en tu celular</li>
+                                    <li>Súbelo a un servicio como <a href="https://vocaroo.com" target="_blank">Vocaroo.com</a> (gratis, sin registro)</li>
+                                    <li>Copia el link de descarga MP3</li>
+                                    <li>Reemplaza "TU_URL_DE_AUDIO_AQUI.mp3" con tu link</li>
+                                </ol>
+                            </div>
+                            
+                            <p>Cada palabra es desde el corazón.</p>
+                            <p><strong>Siempre estaré aquí para ti. 🎧</strong></p>
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleEnvelope(this.closest('.envelope-card'))">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sobre 4: Texto + Video -->
+            <div class="envelope-card" onclick="toggleEnvelope(this)">
+                <div class="envelope-wrapper">
+                    <div class="envelope-front">
+                        <div class="envelope-icon">🎬</div>
+                        <div class="envelope-title">Cuando quieras verme</div>
+                        <div class="envelope-subtitle">Un video para ti</div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="letter-content">
+                            <h3>Mira esto 💜</h3>
+                            <p>Hice este video pensando en ti. Espero que te haga sonreír tanto como yo sonreí al hacerlo.</p>
+                            
+                            <!-- INSTRUCCIONES: Sube tu video -->
+                            <div class="video-player">
+                                <video controls>
+                                    <source src="TU_URL_DE_VIDEO_AQUI.mp4" type="video/mp4">
+                                    Tu navegador no soporta el elemento de video.
+                                </video>
+                            </div>
+                            
+                            <div class="instruction-note">
+                                <strong>📝 Instrucción:</strong> 
+                                <ol style="margin-left: 20px; margin-top: 10px;">
+                                    <li>Sube tu video a Google Drive</li>
+                                    <li>Click derecho > Obtener enlace > Cambiar a "Cualquier persona con el enlace"</li>
+                                    <li>Copia el ID del link (la parte entre /d/ y /view)</li>
+                                    <li>Usa este formato: https://drive.google.com/uc?export=download&id=TU_ID_AQUI</li>
+                                    <li>O súbelo a <a href="https://streamable.com" target="_blank">Streamable.com</a> y usa su link directo</li>
+                                </ol>
+                            </div>
+                            
+                            <p>Cada segundo de este video es un pedacito de mi corazón.</p>
+                            <p><strong>Eres mi todo. 🎥💕</strong></p>
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleEnvelope(this.closest('.envelope-card'))">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sobre 5: Texto + Otra canción de Spotify -->
+            <div class="envelope-card" onclick="toggleEnvelope(this)">
+                <div class="envelope-wrapper">
+                    <div class="envelope-front">
+                        <div class="envelope-icon">💭</div>
+                        <div class="envelope-title">Cuando me extrañes</div>
+                        <div class="envelope-subtitle">Esta canción nos representa</div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="letter-content">
+                            <h3>Te extraño también 💜</h3>
+                            <p>Cada momento lejos de ti escucho esta canción y pienso en todo lo que vivimos juntos.</p>
+                            
+                            <div class="spotify-player">
+                                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/TU_SEGUNDO_TRACK_ID_AQUI?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                            </div>
+                            
+                            <div class="instruction-note">
+                                <strong>📝 Instrucción:</strong> Reemplaza "TU_SEGUNDO_TRACK_ID_AQUI" con otra canción de Spotify que quieras dedicarle.
+                            </div>
+                            
+                            <p>Pronto estaremos juntos de nuevo, creando más momentos inolvidables.</p>
+                            <p><strong>Eres mi persona favorita en todo el mundo. 🌍💕</strong></p>
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleEnvelope(this.closest('.envelope-card'))">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sobre 6: Texto + Playlist o mensaje final especial -->
+            <div class="envelope-card" onclick="toggleEnvelope(this)">
+                <div class="envelope-wrapper">
+                    <div class="envelope-front">
+                        <div class="envelope-icon">❤️</div>
+                        <div class="envelope-title">Cuando quieras saber cuánto te amo</div>
+                        <div class="envelope-subtitle">Lo más importante</div>
+                    </div>
+                    <div class="envelope-back">
+                        <div class="letter-content">
+                            <h3>Te amo infinitamente 💜</h3>
+                            <p>No existe un número suficiente para medir cuánto te amo. Cada día contigo es un regalo que agradezco.</p>
+                            <p>Eres mi inspiración, mi compañera, mi mejor amiga y el amor de mi vida.</p>
+                            <p>Gracias por cada sonrisa, cada abrazo, cada momento compartido. Gracias por ser tú.</p>
+                            
+                            <div class="spotify-player">
+                                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/TU_TERCER_TRACK_ID_AQUI?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                            </div>
+                            
+                            <div class="instruction-note">
+                                <strong>📝 Instrucción:</strong> Pon aquí la canción más especial de todas, la que mejor represente tu amor por ella.
+                            </div>
+                            
+                            <p><strong>Te amo hoy, mañana y siempre. Por todos nuestros mesiversarios que vienen. 💕✨</strong></p>
+                            <button class="close-btn" onclick="event.stopPropagation(); toggleEnvelope(this.closest('.envelope-card'))">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Crear partículas flotantes
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 60 + 20;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function toggleEnvelope(card) {
+            card.classList.toggle('opened');
+        }
+
+        // Inicializar partículas cuando cargue la página
+        window.addEventListener('load', createParticles);
+    </script>
+</body>
+</html>
